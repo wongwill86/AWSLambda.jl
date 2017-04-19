@@ -815,7 +815,8 @@ function create_jl_lambda_base(aws::AWSConfig;
                 "gcc-c++",
                 "gcc-gfortran",
                 "libgfortran",
-                "openssl-devel"]
+                "openssl-devel",
+                "mysql-devel"]
 
     append!(yum_list, get(aws, :lambda_yum_packages, []))
 
@@ -833,7 +834,8 @@ function create_jl_lambda_base(aws::AWSConfig;
                 "AWSSQS",
                 "AWSSES",
                 "AWSSDB",
-                "AWSLambda"]
+                "AWSLambda",
+                "MySQL"]
 
     for p in get(aws, :lambda_packages, [])
         if !(p in pkg_list)
@@ -981,6 +983,7 @@ function create_jl_lambda_base(aws::AWSConfig;
 
     cp -a /usr/lib64/libgfortran.so* lib/
     cp -a /usr/lib64/libquadmath.so* lib/
+    cp -a /usr/lib64/mysql/*.so* lib/
 
     cp /usr/bin/zip bin/
 
